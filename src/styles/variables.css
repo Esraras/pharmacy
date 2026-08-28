@@ -1,0 +1,25 @@
+:root {
+  /* Colors */
+  --primary-green: #59b17a;
+  --primary-green-hover: #3d9b62;
+  --bg-light: #f7f8fa;
+  --text-main: #1d1e21;
+  --text-secondary: #686868;
+  --text-muted: #9f9f9f;
+  --white: #ffffff;
+  --border-color: rgba(29, 30, 33, 0.1);
+  --error-color: #e74c3c;
+  --star-gold: #ffc107;
+
+  /* Fonts */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Breakpoints */
+  --mobile-width: 375px;
+  --tablet-width: 768px;
+  --desktop-width: 1440px;
+}

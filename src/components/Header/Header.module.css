@@ -1,0 +1,61 @@
+.header {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-main);
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+}
+
+.navLink {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.navLink:hover {
+  color: var(--primary-green);
+}
+
+.authNav {
+  display: flex;
+  gap: 12px;
+}
+
+.registerBtn {
+  background-color: var(--primary-green);
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.loginBtn {
+  border: 1px solid var(--primary-green);
+  color: var(--primary-green);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+}
