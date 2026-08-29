@@ -1,16 +1,37 @@
-# React + Vite
+# 💊 Eczane Yönetim Sistemi (Pharmacy Management System)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bu proje, eczane süreçlerini dijitalleştirmek, ilaç stoklarını takip etmek, satış işlemlerini yönetmek ve müşteri/tedarikçi ilişkilerini kolaylaştırmak amacıyla geliştirilmiş bir **Eczane Otomasyonu ve Yönetim Sistemi**dir.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Özellikler
 
-## React Compiler
+* **📦 Stok & İlaç Yönetimi:** İlaç ekleme, güncelleme, silme ve stok durumunu anlık takip etme.
+* **⚠️ Son Kullanma Tarihi Uyarısı:** SKT yaklașan veya dolan ürünlerin otomatik tespiti.
+* **🛒 Satış & Kasa İşlemleri (POS):** Hızlı satış yapma, fatura/fiş oluşturma ve sepet yönetimi.
+* **👥 Müşteri ve Reçete Takibi:** Müşteri bilgileri ile reçete kayıtlarının eşleştirilmesi.
+* **🚛 Tedarikçi Yönetimi:** İlaç tedarikçilerinin ve sipariş süreçlerinin yönetimi.
+* **📊 Raporlama:** Günlük, haftalık ve aylık satış/kazanç raporları.
+* **🔐 Rol Tabanlı Yetkilendirme:** Yönetici (Admin) ve Eczacı/Kasiyer için ayrı erişim seviyeleri.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Kullanılan Teknolojiler
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Proje geliştirilirken kullanılan temel mimari ve teknolojiler:
+
+* **Backend / Dil:** *(Örn: C# / Java / Python / PHP / Node.js)*
+* **Frontend:** *(Örn: HTML5, CSS3, JavaScript / React / Vue)*
+* **Veritabanı:** *(Örn: MySQL / PostgreSQL / MSSQL)*
+* **Arayüz Framework:** *(Örn: Bootstrap / Tailwind CSS / WinForms)*
+
+---
+
+## ⚙️ Kurulum ve Çalıştırma
+
+Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları takip edebilirsiniz:
+
+### 1. Depoyu Klonlayın
+```bash
+git clone [https://github.com/Esraras/pharmacy.git](https://github.com/Esraras/pharmacy.git)
+cd pharmacy
