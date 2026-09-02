@@ -1,5 +1,6 @@
 import Cart from '../models/Cart.js';
 import Order from '../models/Order.js';
+import mongoose from 'mongoose';
 
 export const getCart = async (req, res, next) => {
   try {

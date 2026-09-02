@@ -4,6 +4,7 @@ import { fetchProducts } from '../redux/products/operations';
 import { selectProducts, selectTotalPages } from '../redux/products/selectors';
 import { updateCartItem } from '../redux/cart/operations';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const MedicinePage = () => {
   const dispatch = useDispatch();
@@ -21,8 +22,18 @@ export const MedicinePage = () => {
     dispatch(fetchProducts({ category, query, page })).finally(() => setLoading(false));
   }, [dispatch, category, query, page]);
 
-  const handleAddToCart = (productId) => {
-    dispatch(updateCartItem({ productId, quantity: 1 }));
+  const handleAddToCart = (product) => {
+    dispatch(updateCartItem({ productId: product._id, quantity: 1 }));
+
+    toast.success(`${product.name || 'Product'} added to cart!`, {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "colored", // Yeşil/Şık tema için
+  });
   };
 
   return (
@@ -60,7 +71,7 @@ export const MedicinePage = () => {
               <p style={{ fontWeight: 'bold' }}>${p.price}</p>
               <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
                 <button
-                  onClick={() => handleAddToCart(p._id)}
+                  onClick={() => handleAddToCart(p)}
                   style={{ background: 'var(--primary-green)', color: '#fff', flex: 1, padding: 8, borderRadius: 6 }}
                 >
                   Add to cart

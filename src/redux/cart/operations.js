@@ -1,13 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../services/api';
 
+
 export const fetchCart = createAsyncThunk('cart/fetch', async (_, thunkAPI) => {
   try {
     const res = await api.get('/cart');
-    // Backend returns { userId, items: [...] }
     return { items: res.data.items || [], userId: res.data.userId || null };
   } catch (err) {
-    // If not authenticated, return empty cart
     return { items: [], userId: null };
   }
 });
@@ -19,21 +18,24 @@ export const updateCartItem = createAsyncThunk(
       const res = await api.put('/cart/update', { productId, quantity });
       return res.data;
     } catch (err) {
-      // If not authenticated, store in local state only
+      // 401 hatası aldığında lokal state'i güvenli güncellemek için kopya alıyoruz:
       const state = thunkAPI.getState();
-      const currentItems = state.cart.items || [];
-      const itemIndex = currentItems.findIndex((item) => item.product === productId);
-      
+      const currentItems = [...(state.cart.items || [])];
+      const itemIndex = currentItems.findIndex((item) => item.product === productId || item.product?._id === productId);
+
       if (itemIndex > -1) {
         if (quantity <= 0) {
           currentItems.splice(itemIndex, 1);
         } else {
-          currentItems[itemIndex].quantity = quantity;
+          currentItems[itemIndex] = {
+            ...currentItems[itemIndex],
+            quantity: currentItems[itemIndex].quantity + quantity
+          };
         }
       } else if (quantity > 0) {
         currentItems.push({ product: productId, quantity });
       }
-      
+
       return { items: currentItems };
     }
   }
