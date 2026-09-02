@@ -10,13 +10,15 @@ export const MedicinePage = () => {
   const navigate = useNavigate();
   const products = useSelector(selectProducts);
   const totalPages = useSelector(selectTotalPages);
+  const [loading, setLoading] = useState(false);
 
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('');
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(fetchProducts({ category, query, page }));
+    setLoading(true);
+    dispatch(fetchProducts({ category, query, page })).finally(() => setLoading(false));
   }, [dispatch, category, query, page]);
 
   const handleAddToCart = (productId) => {
@@ -45,7 +47,9 @@ export const MedicinePage = () => {
       </div>
 
       {/* Product List */}
-      {products.length === 0 ? (
+      {loading ? (
+        <p>Loading products...</p>
+      ) : products.length === 0 ? (
         <p>Nothing was found for your request</p>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 20 }}>

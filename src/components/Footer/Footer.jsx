@@ -29,9 +29,9 @@ export const Footer = () => {
             </div>
           </div>
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <Link to="/">Home</Link>
-            <Link to="/medicine-store">Medicine store</Link>
-            <Link to="/medicine">Medicine</Link>
+            <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>Home</Link>
+            <Link to="/medicine-store" style={{ color: 'white', textDecoration: 'none' }}>Medicine store</Link>
+            <Link to="/medicine" style={{ color: 'white', textDecoration: 'none' }}>Medicine</Link>
           </nav>
         </div>
         <div className={styles.bottomSection}>

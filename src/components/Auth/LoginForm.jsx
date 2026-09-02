@@ -10,7 +10,10 @@ export const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    const result = await dispatch(login(data));
+    const result = await dispatch(login({
+      email: data.email,
+      password: data.password,
+    }));
     if (login.fulfilled.match(result)) {
       navigate('/medicine');
     }
@@ -22,7 +25,10 @@ export const LoginForm = () => {
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.inputGroup}>
           <input
-            {...register('email', { required: 'Email is required' })}
+            {...register('email', { 
+              required: 'Email is required',
+              pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Invalid email format' }
+            })}
             placeholder="Email Address"
             className={styles.input}
           />
@@ -31,7 +37,10 @@ export const LoginForm = () => {
         <div className={styles.inputGroup}>
           <input
             type="password"
-            {...register('password', { required: 'Password is required' })}
+            {...register('password', { 
+              required: 'Password is required',
+              minLength: { value: 6, message: 'Password must be at least 6 characters' }
+            })}
             placeholder="Password"
             className={styles.input}
           />

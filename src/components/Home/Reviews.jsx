@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { instance } from '../../services/api';
+import { api } from '../../services/api';
 
 export const Reviews = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    instance.get('/customer-reviews').then((res) => setReviews(res.data));
+    api.get('/customer-reviews').then((res) => setReviews(res.data));
   }, []);
 
   return (

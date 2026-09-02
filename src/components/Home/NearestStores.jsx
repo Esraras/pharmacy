@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { instance } from '../../services/api';
+import { api } from '../../services/api';
 import styles from './Home.module.css';
 
 export const NearestStores = () => {
   const [stores, setStores] = useState([]);
 
   useEffect(() => {
-    instance.get('/stores/nearest').then((res) => setStores(res.data));
+    api.get('/stores/nearest').then((res) => setStores(res.data));
   }, []);
 
   return (

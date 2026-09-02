@@ -1,13 +1,14 @@
 .header {
-  background-color: var(--white);
-  border-bottom: 1px solid var(--border-color);
-  padding: 16px 0;
+  background-color: var(--primary-green);
+  padding: 12px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .headerContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
 }
 
 .logo {
@@ -16,36 +17,51 @@
   gap: 8px;
   font-weight: 700;
   font-size: 18px;
-  color: var(--text-main);
+  color: var(--white);
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .logoIcon {
   width: 32px;
   height: 32px;
+  fill: var(--white);
 }
 
 .nav {
   display: flex;
-  gap: 24px;
+  gap: 16px;
+  flex: 1;
+  justify-content: center;
 }
 
 .navLink {
-  color: var(--text-secondary);
+  color: var(--white);
   font-weight: 500;
-  transition: color var(--transition-fast);
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: background-color var(--transition-fast);
+  text-decoration: none;
 }
 
 .navLink:hover {
-  color: var(--primary-green);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.navLink:is(:global(.active)) {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .authNav {
   display: flex;
   gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .registerBtn {
-  background-color: var(--primary-green);
+  background-color: transparent;
   color: var(--white);
   padding: 8px 16px;
   border-radius: 20px;
@@ -53,9 +69,16 @@
 }
 
 .loginBtn {
-  border: 1px solid var(--primary-green);
-  color: var(--primary-green);
+  border: 1px solid var(--white);
+  background-color: transparent;
+  color: var(--white);
   padding: 8px 16px;
   border-radius: 20px;
   font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.loginBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

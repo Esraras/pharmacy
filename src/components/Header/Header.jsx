@@ -27,7 +27,12 @@ export const Header = () => {
 
         <div className={styles.authNav}>
           {isLoggedIn ? (
-            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'center', color: 'white' }}>
+              <Link to="/cart" style={{ color: 'white', textDecoration: 'none' }}>
+                <svg style={{ width: '24px', height: '24px', fill: 'white' }}>
+                  <use href="/icons/sprite.svg#icon-cart"></use>
+                </svg>
+              </Link>
               <span>{user.name}</span>
               <button onClick={() => dispatch(logout())} className={styles.loginBtn}>Logout</button>
             </div>

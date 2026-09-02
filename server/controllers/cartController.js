@@ -1,4 +1,5 @@
 import Cart from '../models/Cart.js';
+import Order from '../models/Order.js';
 
 export const getCart = async (req, res, next) => {
   try {
@@ -6,7 +7,10 @@ export const getCart = async (req, res, next) => {
     if (!cart) {
       cart = await Cart.create({ userId: req.user._id, items: [] });
     }
-    res.json(cart);
+    res.json({
+      items: cart.items || [],
+      userId: cart.userId
+    });
   } catch (error) {
     next(error);
   }
@@ -35,7 +39,10 @@ export const updateCart = async (req, res, next) => {
 
     await cart.save();
     const updatedCart = await Cart.findById(cart._id).populate('items.product');
-    res.json(updatedCart);
+    res.json({
+      items: updatedCart.items || [],
+      userId: updatedCart.userId
+    });
   } catch (error) {
     next(error);
   }
@@ -43,8 +50,30 @@ export const updateCart = async (req, res, next) => {
 
 export const checkoutCart = async (req, res, next) => {
   try {
+    const { shippingInfo, paymentMethod, total, items } = req.body;
+
+    if (!items || items.length === 0) {
+      return res.status(400).json({ message: 'Cart is empty' });
+    }
+
+    // Create order
+    const order = await Order.create({
+      userId: req.user._id,
+      items,
+      shippingInfo,
+      paymentMethod,
+      total,
+      status: 'pending',
+    });
+
+    // Clear cart
     await Cart.findOneAndUpdate({ userId: req.user._id }, { items: [] });
-    res.status(200).json({ message: 'Checkout successful' });
+
+    res.status(201).json({
+      message: 'Order placed successfully',
+      orderId: order._id,
+      order
+    });
   } catch (error) {
     next(error);
   }
