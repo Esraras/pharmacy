@@ -10,26 +10,28 @@ export const fetchCart = createAsyncThunk('cart/fetch', async (_, thunkAPI) => {
     return { items: [], userId: null };
   }
 });
-
 export const updateCartItem = createAsyncThunk(
   'cart/update',
   async ({ productId, quantity }, thunkAPI) => {
     try {
       const res = await api.put('/cart/update', { productId, quantity });
-      return res.data;
+      return res.data; 
+      
     } catch (err) {
-      // 401 hatası aldığında lokal state'i güvenli güncellemek için kopya alıyoruz:
       const state = thunkAPI.getState();
       const currentItems = [...(state.cart.items || [])];
-      const itemIndex = currentItems.findIndex((item) => item.product === productId || item.product?._id === productId);
+      const itemIndex = currentItems.findIndex(
+        (item) => item.product === productId || item.product?._id === productId
+      );
 
       if (itemIndex > -1) {
-        if (quantity <= 0) {
+        const newQuantity = currentItems[itemIndex].quantity + quantity;
+        if (newQuantity <= 0) {
           currentItems.splice(itemIndex, 1);
         } else {
           currentItems[itemIndex] = {
             ...currentItems[itemIndex],
-            quantity: currentItems[itemIndex].quantity + quantity
+            quantity: newQuantity
           };
         }
       } else if (quantity > 0) {

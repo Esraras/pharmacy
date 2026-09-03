@@ -26,13 +26,18 @@ export const updateCart = async (req, res, next) => {
       cart = new Cart({ userId: req.user._id, items: [] });
     }
 
-    const itemIndex = cart.items.findIndex((item) => item.product.toString() === productId);
+    const itemIndex = cart.items.findIndex(
+      (item) => (item.product._id || item.product).toString() === productId
+    );
 
     if (itemIndex > -1) {
-      if (quantity <= 0) {
+      // Mevcut adede yeni eklenmek isteneni ilave ediyoruz
+      const newQuantity = cart.items[itemIndex].quantity + quantity;
+
+      if (newQuantity <= 0) {
         cart.items.splice(itemIndex, 1);
       } else {
-        cart.items[itemIndex].quantity = quantity;
+        cart.items[itemIndex].quantity = newQuantity;
       }
     } else if (quantity > 0) {
       cart.items.push({ product: productId, quantity });
@@ -40,6 +45,7 @@ export const updateCart = async (req, res, next) => {
 
     await cart.save();
     const updatedCart = await Cart.findById(cart._id).populate('items.product');
+    
     res.json({
       items: updatedCart.items || [],
       userId: updatedCart.userId
@@ -57,25 +63,36 @@ export const checkoutCart = async (req, res, next) => {
       return res.status(400).json({ message: 'Cart is empty' });
     }
 
-    // Create order
+    const orderItems = items.map((item) => ({
+      product: item.productId || item.product,
+      quantity: item.quantity,
+      price: item.price || 0
+    }));
+
     const order = await Order.create({
       userId: req.user._id,
-      items,
-      shippingInfo,
-      paymentMethod,
-      total,
+      items: orderItems,
+      shippingInfo: shippingInfo || { 
+        name: 'Default User', 
+        email: 'default@mail.com', 
+        phone: '0000000000', 
+        address: 'Default Address' 
+      },
+      paymentMethod: paymentMethod || 'Cash On Delivery',
+      total: total || 0,
       status: 'pending',
     });
 
-    // Clear cart
+    // Sepeti temizle
     await Cart.findOneAndUpdate({ userId: req.user._id }, { items: [] });
 
     res.status(201).json({
       message: 'Order placed successfully',
       orderId: order._id,
-      order
+      order,
     });
   } catch (error) {
+    console.error("Checkout Error Detail:", error); // Terminalde tam hatayı görmek için
     next(error);
   }
 };
