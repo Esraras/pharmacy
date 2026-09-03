@@ -49,5 +49,8 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 if (process.env.NODE_ENV !== 'production') {
-  app.listen(5000, () => console.log('Server running locally'));
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
+
+module.exports = app;
